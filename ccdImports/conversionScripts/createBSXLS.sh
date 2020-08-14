@@ -2,7 +2,7 @@
 
 set -eu
 
-conversionFolder=$(dirname "$(readlink -f "$0")")
+conversionFolder=$(dirname "$0")
 configFolder=${conversionFolder}/../configFiles
 
 if [ -z "$1" ]

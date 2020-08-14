@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN_PATH=$(dirname "$(readlink -f "$0")")
+BIN_PATH=$(dirname "$0")
 
 function usage() {
     echo "Usage: npx @hmcts/probate-dev-env [options]"

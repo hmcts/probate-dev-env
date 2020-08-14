@@ -2,7 +2,7 @@
 
 set -eu
 
-excel_output_directory=$(dirname "$(readlink -f "$0")")/../../jsonToXLS
+excel_output_directory=$(dirname "$0")/../../jsonToXLS
 
 mkdir -p ${excel_output_directory}
 

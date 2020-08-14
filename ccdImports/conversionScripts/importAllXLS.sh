@@ -2,8 +2,8 @@
 
 set -eu
 
-binFolder=$(dirname "$(readlink -f "$0")")/../../bin
-xlsToJsonFolder=$(dirname "$(readlink -f "$0")")/../../jsonToXLS
+binFolder=$(dirname "$0")/../../bin
+xlsToJsonFolder=$(dirname "$0")/../../jsonToXLS
 
 echo binFolder = $binFolder
 echo xlsToJsonFolder = $xlsToJsonFolder

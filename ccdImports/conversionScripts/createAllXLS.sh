@@ -2,7 +2,7 @@
 
 set -eu
 
-conversionFolder=$(dirname "$(readlink -f "$0")")
+conversionFolder=$(dirname "$0")
 configFolder=${conversionFolder}/../configFiles
 
 ${conversionFolder}/convertJsonToXLS.sh ${configFolder}/CCD_Probate_Backoffice/
