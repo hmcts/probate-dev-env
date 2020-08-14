@@ -2,6 +2,18 @@
 
 BIN_PATH=$(dirname "$0")
 
+function usage() {
+    echo "Usage: npx @hmcts/probate-dev-env [options]"
+    echo
+    echo "Options:"
+    echo "  --create - create the environment"
+    echo "  --stop - stop all the docker containers"
+    echo ""
+    echo "Not specifying an option will start the development environment"
+    echo
+    exit 1
+}
+
 command=$1
 
 shift
@@ -12,22 +24,10 @@ case $command in
     --stop)
         $BIN_PATH/dev-stop.sh
         ;;
-    --usage)
+    --help)
         usage
         ;;
     *)
         $BIN_PATH/dev-start.sh
         ;;
 esac
-
-function usage() {
-    echo "Usage: npx @hmcts/probate-dev-env [options]"
-    echo
-    echo "Options:"
-    echo "  --create - create the environment"
-    echo "  --stop - "
-    echo ""
-    echo "Not specifying an option will start the development environment"
-    echo
-    exit 1
-}
