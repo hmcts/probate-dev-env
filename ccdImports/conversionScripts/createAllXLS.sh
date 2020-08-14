@@ -2,7 +2,7 @@
 
 set -eu
 
-conversionFolder=$(dirname "$0")
+conversionFolder=$(dirname "$(realpath "$0")")
 configFolder=${conversionFolder}/../configFiles
 
 ${conversionFolder}/convertJsonToXLS.sh ${configFolder}/CCD_Probate_Backoffice/

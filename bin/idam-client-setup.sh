@@ -6,7 +6,7 @@ IDAM_URI="http://localhost:5000"
 REDIRECT_URI="http://localhost:3451/oauth2redirect"
 CLIENT_ID="ccd_gateway"
 CLIENT_SECRET="ccd_gateway_secret"
-BIN_FOLDER=$(dirname "$0")
+BIN_FOLDER=$(dirname "$(realpath "$0")")
 
 authToken=$(curl -v -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | jq -r .api_auth_token)
 

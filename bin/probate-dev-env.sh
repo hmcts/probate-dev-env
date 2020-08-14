@@ -1,6 +1,6 @@
 #!/bin/bash
 
-BIN_PATH=$(dirname "$0")
+BIN_PATH=$(dirname "$(realpath "$0")")
 
 function usage() {
     echo "Usage: npx @hmcts/probate-dev-env [options]"
