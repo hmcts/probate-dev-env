@@ -5,8 +5,8 @@ COMPOSE_FILE=""
 BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
 echo "Logging into ACR..."
-az acr login --name hmctspublic --subscription DCD-CNP-Prod
-az acr login --name hmctsprivate --subscription DCD-CNP-Prod
+az acr login --name hmctspublic --subscription 8999dec3-0104-4a27-94ee-6588559729d1
+az acr login --name hmctsprivate --subscription 8999dec3-0104-4a27-94ee-6588559729d1
 
 echo "Pulling docker images..."
 docker-compose ${COMPOSE_FILE} pull
