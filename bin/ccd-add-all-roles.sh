@@ -1,5 +1,5 @@
 #!/bin/bash
-binFolder=$(dirname "$(realpath "$0")")
+binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 
 (${binFolder}/idam-create-caseworker.sh ccd-import ccd.docker.default@hmcts.net Pa55word11 Default CCD_Docker)
 

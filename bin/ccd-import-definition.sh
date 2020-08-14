@@ -16,7 +16,7 @@ elif [ ! -f "$1" ]
     exit 1
 fi
 
-binFolder=$(dirname "$(realpath "$0")")
+binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 
 userToken="$(${binFolder}/idam-user-token.sh)"
 serviceToken="$(${binFolder}/idam-service-token.sh ccd_gw)"

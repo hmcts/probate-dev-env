@@ -2,8 +2,8 @@
 
 set -eu
 
-binFolder=$(dirname "$(realpath "$0")")/../../bin
-xlsToJsonFolder=$(dirname "$(realpath "$0")")/../../jsonToXLS
+binFolder=$($(dirname "$0")/probate-dev-env-realpath)/../../bin
+xlsToJsonFolder=$($(dirname "$0")/probate-dev-env-realpath)/../../jsonToXLS
 
 echo binFolder = $binFolder
 echo xlsToJsonFolder = $xlsToJsonFolder

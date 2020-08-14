@@ -1,6 +1,7 @@
 #!/bin/bash
+echo node -e "console.log(__dirname)"
 
-BIN_PATH=$(dirname "$(realpath "$0")")
+BIN_PATH=$($(dirname "$0")/probate-dev-env-realpath)
 
 function usage() {
     echo "Usage: npx @hmcts/probate-dev-env [options]"

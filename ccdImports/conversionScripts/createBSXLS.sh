@@ -2,7 +2,7 @@
 
 set -eu
 
-conversionFolder=$(dirname "$(realpath "$0")")
+conversionFolder=$($(dirname "$0")/probate-dev-env-realpath)
 configFolder=${conversionFolder}/../configFiles
 
 if [ -z "$1" ]

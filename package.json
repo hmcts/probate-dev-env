@@ -3,7 +3,10 @@
   "version": "1.0.12",
   "description": "Scripts to set up the Probate development environment",
   "main": "index.js",
-  "bin": "bin/probate-dev-env.sh",
+  "bin": {
+    "probate-dev-env": "bin/probate-dev-env.sh",
+    "probate-dev-env-realpath": "bin/probate-dev-env-realpath"
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },

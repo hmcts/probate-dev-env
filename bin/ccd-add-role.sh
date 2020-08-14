@@ -25,7 +25,7 @@ case $classification in
     exit 1 ;;
 esac
 
-binFolder=$(dirname "$(realpath "$0")")
+binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 
 userToken="$(${binFolder}/idam-user-token.sh)"
 serviceToken="$(${binFolder}/idam-service-token.sh ccd_gw)"

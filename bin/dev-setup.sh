@@ -2,7 +2,7 @@
 
 # Set variables
 COMPOSE_FILE=""
-BIN_FOLDER=$(dirname "$(realpath "$0")")
+BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
 echo "Logging into ACR..."
 az acr login --name hmctspublic --subscription DCD-CNP-Prod
