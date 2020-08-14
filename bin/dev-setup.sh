@@ -29,7 +29,7 @@ do
   sleep 10;
 done
 
-$BIN_FOLDER/bin/idam-client-setup.sh
+$BIN_FOLDER/idam-client-setup.sh
 
 # Start all other images
 echo "Starting dependencies..."
