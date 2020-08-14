@@ -1,5 +1,4 @@
 #!/bin/bash
-echo node -e "console.log(__dirname)"
 
 BIN_PATH=$($(dirname "$0")/probate-dev-env-realpath)
 
