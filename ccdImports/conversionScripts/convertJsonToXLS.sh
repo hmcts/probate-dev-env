@@ -6,7 +6,6 @@ excel_output_directory="jsonToXLS"
 mkdir -p ${excel_output_directory}
 
 source ${0%/*}/toAbsPath.sh
-source ${0%/*}/setHostAndPort.sh
 
 # TODO pull latest docker image
 # see https://stackoverflow.com/questions/26734402/how-to-upgrade-docker-container-after-its-image-changed
@@ -20,6 +19,8 @@ echo $ccd_definition_excel_output_file
 if [[ ! -e ${ccd_definition_excel_output_file} ]]; then
    touch ${ccd_definition_excel_output_file}
 fi
+
+export CCD_DEF_CASE_SERVICE_BASE_URL=probate-back-office:4104
 
 docker run --user $UID --rm --name json2xlsx \
     -v ${ccd_definition_json_output_dir_absolute_path}:/tmp/ccd-definition \

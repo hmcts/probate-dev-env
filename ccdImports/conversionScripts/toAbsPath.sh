@@ -6,8 +6,8 @@ function to-abs-path {
     if [ "$target" == "." ]; then
         echo "$(pwd)"
     elif [ "$target" == ".." ]; then
-        echo "$(dirname -P "$(pwd)")"
+        echo "$(dirname "$(pwd)")"
     else
-        echo "$(cd "$(dirname -P "$1")"; pwd)/$(basename "$1")"
+        echo "$(cd "$(dirname "$1")"; pwd)/$(basename "$1")"
     fi
 }
