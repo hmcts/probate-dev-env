@@ -2,7 +2,7 @@
 
 # Set variables
 COMPOSE_FILE=""
-BIN_FOLDER=$(dirname "$0")
+BIN_FOLDER=$(dirname "$(readlink -f "$0")")
 
 echo "Logging into ACR..."
 az acr login --name hmctspublic --subscription DCD-CNP-Prod
@@ -58,7 +58,7 @@ do
   sleep 10;
 done
 
-$BIN_FOLDER/bin/ccd-add-all-roles.sh
+$BIN_FOLDER/ccd-add-all-roles.sh
 $BIN_FOLDER/../ccdImports/conversionScripts/createAllXLS.sh probate-back-office:4104
 $BIN_FOLDER/../ccdImports/conversionScripts/importAllXLS.sh
 

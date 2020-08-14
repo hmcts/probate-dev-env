@@ -2,8 +2,8 @@
 
 set -eu
 
-binFolder=$(dirname "$0")/../../bin
-xlsToJsonFolder=$(dirname "$0")/../../jsonToXLS
+binFolder=$(dirname -P "$0")/../../bin
+xlsToJsonFolder=$(dirname -P "$0")/../../jsonToXLS
 
 echo binFolder = $binFolder
 echo xlsToJsonFolder = $xlsToJsonFolder

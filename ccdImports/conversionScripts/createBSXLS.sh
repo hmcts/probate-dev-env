@@ -2,7 +2,7 @@
 
 set -eu
 
-conversionFolder=$(dirname "$0")
+conversionFolder=$(dirname -P "$0")
 configFolder=${conversionFolder}/../configFiles
 
 if [ -z "$1" ]

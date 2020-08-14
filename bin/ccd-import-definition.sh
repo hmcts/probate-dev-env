@@ -16,7 +16,7 @@ elif [ ! -f "$1" ]
     exit 1
 fi
 
-binFolder=$(dirname "$0")
+binFolder=$(dirname "$(readlink -f "$0")")
 
 userToken="$(${binFolder}/idam-user-token.sh)"
 serviceToken="$(${binFolder}/idam-service-token.sh ccd_gw)"
