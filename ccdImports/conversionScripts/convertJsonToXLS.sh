@@ -2,17 +2,16 @@
 
 set -eu
 
-excel_output_directory="jsonToXLS"
-mkdir -p ${excel_output_directory}
+excel_output_directory=$(dirname "$(readlink -f "$0")")/../../jsonToXLS
 
-source ${0%/*}/toAbsPath.sh
+mkdir -p ${excel_output_directory}
 
 # TODO pull latest docker image
 # see https://stackoverflow.com/questions/26734402/how-to-upgrade-docker-container-after-its-image-changed
 
-ccd_definition_json_output_dir_absolute_path=$(to-abs-path "$1")
+ccd_definition_json_output_dir_absolute_path="$1"
 ccd_definition_json_output_dir_name=$(echo ${ccd_definition_json_output_dir_absolute_path##*/})
-ccd_definition_excel_output_file=$(to-abs-path "${excel_output_directory}/${ccd_definition_json_output_dir_name}.xlsx")
+ccd_definition_excel_output_file=$(${excel_output_directory}/${ccd_definition_json_output_dir_name}.xlsx)
 
 echo $ccd_definition_excel_output_file
 
