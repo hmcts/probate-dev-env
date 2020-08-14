@@ -1,6 +1,6 @@
 {
   "name": "@hmcts/probate-dev-env",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Scripts to set up the Probate development environment",
   "main": "index.js",
   "bin": "bin/probate-dev-env.sh",
