@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Scripts to set up the Probate development environment",
   "main": "index.js",
+  "bin": "bin/probate-dev-env.sh",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
