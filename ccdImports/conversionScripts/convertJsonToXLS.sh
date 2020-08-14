@@ -10,9 +10,11 @@ mkdir -p ${excel_output_directory}
 # see https://stackoverflow.com/questions/26734402/how-to-upgrade-docker-container-after-its-image-changed
 
 ccd_definition_json_output_dir_absolute_path="$1"
-ccd_definition_json_output_dir_name=$(echo ${ccd_definition_json_output_dir_absolute_path##*/})
-ccd_definition_excel_output_file=$(${excel_output_directory}/${ccd_definition_json_output_dir_name}.xlsx)
+ccd_definition_json_output_dir_name=$(basename ${ccd_definition_json_output_dir_absolute_path})
+ccd_definition_excel_output_file=$(echo ${excel_output_directory}/${ccd_definition_json_output_dir_name}.xlsx)
 
+echo $ccd_definition_json_output_dir_absolute_path
+echo $ccd_definition_json_output_dir_name
 echo $ccd_definition_excel_output_file
 
 if [[ ! -e ${ccd_definition_excel_output_file} ]]; then
