@@ -1,0 +1,19 @@
+{
+  "name": "@hmcts/probate-dev-env",
+  "version": "1.0.0",
+  "description": "Scripts to set up the Probate development environment",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hmcts/probate-dev-env.git"
+  },
+  "author": "Probate",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hmcts/probate-dev-env/issues"
+  },
+  "homepage": "https://github.com/hmcts/probate-dev-env#readme"
+}
