@@ -1,4 +1,0 @@
-[
-  {"CaseTypeID": "LegacySearch", "UserRole": "caseworker-probate-issuer", "CRUD": "CRUD"},
-  {"CaseTypeID": "LegacySearch", "UserRole": "caseworker-probate-caseadmin", "CRUD": "CRUD"}
-]

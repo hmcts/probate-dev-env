@@ -21,6 +21,9 @@ docker-compose ${COMPOSE_FILE} up -d fr-am fr-idm
 echo "Starting IDAM..."
 docker-compose ${COMPOSE_FILE} up -d sidam-api
 
+echo "Fetching latest Probate CCD definition file ${BIN_FOLDER}"
+curl https://codeload.github.com/hmcts/probate-back-office/tar.gz/master | tar -xz  -C $BIN_FOLDER/../ --strip=1 probate-back-office-master/ccdImports/configFiles
+
 # Set up IDAM client with services and roles
 echo "Setting up IDAM client..."
 until curl http://localhost:5000/health
