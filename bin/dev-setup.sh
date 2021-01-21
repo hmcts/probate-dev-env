@@ -71,27 +71,16 @@ psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO a
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO flat_amount(id, amount) VALUES ((SELECT MAX( id ) FROM amount a ), 3)";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description,status,valid_from,valid_to,version,amount_id,fee_id,direction_type,fee_order_name,memo_line,natural_account_code,si_ref_id,statutory_instrument,approved_by,author) VALUES ('Application for the entry or extension of a caveat',1,'2011-04-03 00:00:00.000',NULL,1,(SELECT MAX( id ) FROM amount a ),(SELECT MAX(id) from fee),'cost recovery','Non-Contentious Probate Fees','RECEIPT OF FEES - Family misc probate','4481102173','4','2011 No 588 ','126175','126172')";
 
-UPDATE_COUNT=0;
-UPDATE_RESULT="";
-until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 20 ]]
-do
-  echo "trying/retrying volume_amount amount update";
-  UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = '4'";);
-  echo $UPDATE_RESULT
-  sleep 3;
-  ((UPDATE_COUNT+=1));
-done
-
-UPDATE_COUNT=0;
-UPDATE_RESULT="";
-until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 20 ]]
-do
-  echo "trying/retrying flat_amount amount update";
-  UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";);
-  echo $UPDATE_RESULT
-  sleep 3;
-  ((UPDATE_COUNT+=1));
-done
+# These updates usually return UPDATE 0 after a --create following a --destroy (creating from scratch).
+# This means 0 rows updated. It is unclear as to why the row is not there yet;
+# but as a workaround we also run these updates iwhen we dev start.
+# If these updates do not occur, functional tests and e2e tests will fail.
+UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'NewFee' WHERE code = 'FEE0003'";);
+echo $UPDATE_RESULT
+UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = '4'";);
+echo $UPDATE_RESULT
+UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";);
+echo $UPDATE_RESULT
 
 docker-compose ${COMPOSE_FILE} stop
 
