@@ -84,7 +84,7 @@ done
 
 UPDATE_COUNT=0;
 UPDATE_RESULT="";
-until [ "$UPDATE_RESULT" == "UPDATE 1" ]
+until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 20 ]]
 do
   echo "trying/retrying flat_amount amount update";
   UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";);
