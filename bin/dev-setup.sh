@@ -38,6 +38,20 @@ $BIN_FOLDER/idam-client-setup.sh
 echo "Starting dependencies..."
 docker-compose ${COMPOSE_FILE} up -d fees-api ccd-data-store-api ccd-definition-store-api ccd-elasticsearch
 
+# Fees API migrations appear to be broken so it fails to boot first time round
+docker-compose ${COMPOSE_FILE} restart fees-api
+
+echo "Setting up CCD roles..."
+until curl http://localhost:4451/health
+do
+  echo "Waiting for CCD";
+  sleep 10;
+done
+
+$BIN_FOLDER/ccd-add-all-roles.sh
+$BIN_FOLDER/../ccdImports/conversionScripts/createAllXLS.sh probate-back-office:4104
+$BIN_FOLDER/../ccdImports/conversionScripts/importAllXLS.sh
+
 # Set up missing Fees keyword
 echo "Setting up Fees keyword"
 
@@ -72,20 +86,6 @@ do
   echo $UPDATE_RESULT
   sleep 3;
 done
-
-# Fees API migrations appear to be broken so it fails to boot first time round
-docker-compose ${COMPOSE_FILE} restart fees-api
-
-echo "Setting up CCD roles..."
-until curl http://localhost:4451/health
-do
-  echo "Waiting for CCD";
-  sleep 10;
-done
-
-$BIN_FOLDER/ccd-add-all-roles.sh
-$BIN_FOLDER/../ccdImports/conversionScripts/createAllXLS.sh probate-back-office:4104
-$BIN_FOLDER/../ccdImports/conversionScripts/importAllXLS.sh
 
 docker-compose ${COMPOSE_FILE} stop
 
