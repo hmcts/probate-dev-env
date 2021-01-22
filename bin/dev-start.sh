@@ -79,31 +79,6 @@ do
   fi
 done
 
-UPDATE_COUNT=0;
-UPDATE_RESULT="";
-until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 60 ]]
-do
-  if [ "$UPDATE_RESULT" == "" ]
-  then
-    echo "attempting volume_amount amount update";
-  else 
-    echo "retrying volume_amount amount update";
-  fi
-
-  UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = '4'";);
-  echo $UPDATE_RESULT
-  if [ "$UPDATE_RESULT" != "UPDATE 1" ]
-  then
-    if [ "$UPDATE_RESULT" == "" ]
-    then 
-      UPDATE_RESULT="ERROR";
-    fi
-    sleep 10;
-    ((UPDATE_COUNT+=1));
-  else
-    UPDATE_COUNT=60;
-  fi
-done
 
 
 
