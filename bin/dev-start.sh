@@ -16,7 +16,7 @@ echo "Waiting for IDAM to start"
 until curl http://localhost:5000/health
 do
   echo "Waiting for IDAM";
-  sleep 10;
+  sleep 5;
 done
 
 # Start all other images
@@ -24,12 +24,12 @@ echo "Starting dependencies..."
 docker-compose ${COMPOSE_FILE} up -d
 
 echo "LOCAL ENVIRONMENT SUCCESSFULLY STARTED"
-
+echo "Environment is ready, other than some fee updates which may take a while."
 echo "Updating fees..."
 
 UPDATE_COUNT=0;
 UPDATE_RESULT="";
-until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 20 ]]
+until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 60 ]]
 do
   if [ "$UPDATE_RESULT" == "" ]
   then
@@ -46,15 +46,16 @@ do
     then 
       UPDATE_RESULT="ERROR";
     fi
-    sleep 3;
+    sleep 10;
+    ((UPDATE_COUNT+=1));
+  else
+    UPDATE_COUNT=60;
   fi
-
-  ((UPDATE_COUNT+=1));
 done
 
 UPDATE_COUNT=0;
 UPDATE_RESULT="";
-until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 20 ]]
+until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 60 ]]
 do
   if [ "$UPDATE_RESULT" == "" ]
   then
@@ -71,15 +72,16 @@ do
     then 
       UPDATE_RESULT="ERROR";
     fi
-    sleep 3;
+    sleep 10;
+    ((UPDATE_COUNT+=1));
+  else
+    UPDATE_COUNT=60;
   fi
-
-  ((UPDATE_COUNT+=1));
 done
 
 UPDATE_COUNT=0;
 UPDATE_RESULT="";
-until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 20 ]]
+until [[ "$UPDATE_RESULT" == "UPDATE 1" || "$UPDATE_COUNT" == 60 ]]
 do
   if [ "$UPDATE_RESULT" == "" ]
   then
@@ -97,8 +99,9 @@ do
       UPDATE_RESULT="ERROR";
     fi
     sleep 3;
+    ((UPDATE_COUNT+=1));
+  else
+    UPDATE_COUNT=60;
   fi
-
-  ((UPDATE_COUNT+=1));
 done
 
