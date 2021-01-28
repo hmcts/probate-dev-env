@@ -67,7 +67,7 @@ echo "Updating Fees keyword, and amounts"
 # If these updates do not occur, functional tests and e2e tests will fail.
 UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'NewFee' WHERE code = 'FEE0003'";);
 echo $UPDATE_RESULT
-UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = '4'";);
+UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = '5'";);
 echo $UPDATE_RESULT
 UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";);
 echo $UPDATE_RESULT
