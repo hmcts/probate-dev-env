@@ -90,7 +90,8 @@ do
     echo "retrying volume_amount amount update";
   fi
 
-  UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = '5'";);
+  UPDATE_RESULT=$(psql -h localhost --username postgres -d fees_register -p 5050 -c \
+    "UPDATE volume_amount SET amount = '1.5' WHERE id = (SELECT id FROM public.amount WHERE amount_type = 'VolumeAmount' ORDER BY id LIMIT 1)";);
   echo $UPDATE_RESULT
   if [ "$UPDATE_RESULT" != "UPDATE 1" ]
   then
