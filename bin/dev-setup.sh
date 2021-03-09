@@ -52,8 +52,6 @@ $BIN_FOLDER/ccd-add-all-roles.sh
 $BIN_FOLDER/../ccdImports/conversionScripts/createAllXLS.sh probate-back-office:4104
 $BIN_FOLDER/../ccdImports/conversionScripts/importAllXLS.sh
 
-echo "Inserting fees and amounts"
-
 docker-compose ${COMPOSE_FILE} stop
 
 echo "LOCAL ENVIRONMENT SUCCESSFULLY CREATED"
