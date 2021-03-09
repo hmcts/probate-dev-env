@@ -71,6 +71,7 @@ echo "Updating Fees keyword, and amounts..."
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'GrantWill' WHERE code = 'FEE0003'";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'PA' WHERE code = 'FEE0226'";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'SA' WHERE code = 'FEE0219'";
+psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'SAL5K' WHERE code = 'FEE0220'";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'Caveat' WHERE code = 'FEE0288'";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = (SELECT id FROM amount WHERE amount_type = 'VolumeAmount' ORDER BY id LIMIT 1)";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";
