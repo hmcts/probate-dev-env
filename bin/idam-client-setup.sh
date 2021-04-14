@@ -10,12 +10,8 @@ XUI_CLIENT_ID="xuiwebapp"
 XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
-XUI_ROLES_ARR=("XUI-Admin" "XUI-SuperUser" "caseworker" "caseworker-probate" "caseworker-probate-solicitor" "ccd-import" "caseworker-probate-superuser" "payment")
-XUI_ROLES_STR=$(printf "\"%s\"," "${XUI_ROLES_ARR[@]}")
-XUI_ROLES="[${XUI_ROLES_STR%?}]"
-
 authToken=$(curl -v -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | jq -r .api_auth_token)
-HEADERS=(-H "Authorization: AdminApiAuthToken ${authToken}" -H "Content-Type: application/json")
+
 echo "authtoken is ${authToken}"
 
 #Create a ccd gateway client
@@ -27,8 +23,11 @@ curl -XPOST \
 
 echo "Setup xui client"
 # Create a xui client
-curl -s -o /dev/null -XPOST "${HEADERS[@]}" ${IDAM_URI}/services \
- -d '{ "activationRedirectUrl": "", "allowedRoles": '"${XUI_ROLES}"', "description": "'${XUI_CLIENT_ID}'", "label": "'${XUI_CLIENT_ID}'", "oauth2ClientId": "'${XUI_CLIENT_ID}'", "oauth2ClientSecret": "'${XUI_CLIENT_SECRET}'", "oauth2RedirectUris": '${REDIRECT_URI}', "oauth2Scope": "profile openid roles manage-user create-user", "onboardingEndpoint": "string", "onboardingRoles": '"${XUI_ROLES}"', "selfRegistrationAllowed": true}'
+curl -XPOST \
+  ${IDAM_URI}/services \
+ -H "Authorization: AdminApiAuthToken ${authToken}" \
+ -H "Content-Type: application/json" \
+ -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "payment", "XUI-Admin", "XUI-SuperUser" ], "description": "'${XUI_CLIENT_ID}'", "label": "'${XUI_CLIENT_ID}'", "oauth2ClientId": "'${XUI_CLIENT_ID}'", "oauth2ClientSecret": "'${XUI_CLIENT_SECRET}'", "oauth2RedirectUris": ["http://localhost:3451/oauth2redirect", "http://localhost:3000/oauth2/callback" ], "oauth2Scope": "string", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "payment", "XUI-Admin", "XUI-SuperUser" ], "selfRegistrationAllowed": true}'
 
 
 #Create all the role
@@ -47,13 +46,8 @@ $BIN_FOLDER/idam-role.sh caseworker-probate-scheduler
 $BIN_FOLDER/idam-role.sh caseworker-probate-charity
 $BIN_FOLDER/idam-role.sh payment
 $BIN_FOLDER/idam-role-assignable.sh ccd-import
-
-echo "Setup xui roles"
-# Create roles in idam
-for role in "${XUI_ROLES_ARR[@]}"; do
-  curl -s -o /dev/null -XPOST ${IDAM_URI}/roles "${HEADERS[@]}" \
-    -d '{"id": "'${role}'","name": "'${role}'","description": "'${role}'","assignableRoles": [],"conflictingRoles": []}'
-done
+$BIN_FOLDER/idam-role.sh XUI-Admin
+$BIN_FOLDER/idam-role.sh XUI-SuperUser
 
 #Assign all the roles to the ccd_gateway client
 curl -XPUT \
@@ -62,6 +56,10 @@ curl -XPUT \
  -H "Content-Type: application/json" \
  -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "caseworker-probate-scheduler", "payment"]'
 
+#Assign roles to the xui client
 echo "Setup xui client roles"
-# Assign all the roles to the client
-curl -s -o /dev/null -XPUT "${HEADERS[@]}" ${IDAM_URI}/services/${XUI_CLIENT_ID}/roles -d "${XUI_ROLES}"
+curl -XPUT \
+  ${IDAM_URI}/services/${XUI_CLIENT_ID}/roles \
+ -H "Authorization: AdminApiAuthToken ${authToken}" \
+ -H "Content-Type: application/json" \
+ -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "payment", "XUI-Admin", "XUI-SuperUser"]'
