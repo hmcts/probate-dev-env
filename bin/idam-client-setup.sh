@@ -10,7 +10,7 @@ XUI_CLIENT_ID="xuiwebapp"
 XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
 BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
-authToken=$(curl -v -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | jq -r .api_auth_token)
+authToken=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
 
 echo "authtoken is ${authToken}"
 
