@@ -15,6 +15,7 @@ authToken=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST 
 echo "authtoken is ${authToken}"
 
 #Create a ccd gateway client
+echo "Setup ccd gateway client"
 curl -XPOST \
   ${IDAM_URI}/services \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
@@ -50,6 +51,7 @@ $BIN_FOLDER/idam-role.sh XUI-Admin
 $BIN_FOLDER/idam-role.sh XUI-SuperUser
 
 #Assign all the roles to the ccd_gateway client
+echo "Setup ccd_gateway client roles"
 curl -XPUT \
   ${IDAM_URI}/services/ccd_gateway/roles \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
