@@ -11,5 +11,17 @@ if [ -z "$role" ]
 fi
 authToken=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
 
-curl -s -o -XPOST ${IDAM_URI}/roles "-H "Authorization: AdminApiAuthToken ${authToken}" -H "Content-Type: application/json"" \
-    -d '{"id": "'${role}'","name": "'${role}'","description": "'${description}'","assignableRoles": [],"conflictingRoles": []}
+echo "\nCreating role with:\nName: ${role}\n"
+
+
+curl --silent --show-error ${IDAM_URI}/roles \
+   -H 'Content-Type: application/json' \
+   -H "Authorization: AdminApiAuthToken ${authToken}" \
+   -d '{
+        "assignableRoles": [],
+        "conflictingRoles": [],
+        "description": "'"${role}"'",
+        "id": "'"${role}"'",
+        "linkedRoles": [],
+        "name": "'"${role}"'"
+      }'

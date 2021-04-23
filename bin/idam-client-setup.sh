@@ -65,3 +65,26 @@ curl -XPUT \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
  -H "Content-Type: application/json" \
  -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "payment", "XUI-Admin", "XUI-SuperUser"]'
+
+
+
+echo "Creating idam users"
+$BIN_FOLDER/idam-create-user.sh ccd-import ccd.docker.default@hmcts.net Pa55word11 Default CCD_Docker
+$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-caseofficer ProbateCaseOfficer@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-caseadmin ProbateCaseAdmin@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-registrar ProbateRegistrar@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-superuser ProbateSuperuser@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-issuer ProbateSolCW1@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-issuer ProbateSolCW2@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-solicitor ProbateSolicitor1@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-solicitor ProbateSolicitor2@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-systemupdate bulkscan+ccd@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-caseofficer ProbateCaseOfficer@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-caseadmin ProbateCaseAdmin@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-registrar ProbateRegistrar@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-superuser ProbateSuperuser@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-scheduler ProbateSchedulerDEV@gmail.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-pcqextractor ProbatePcqExtractor@gmail.com
+$BIN_FOLDER/idam-create-user.sh citizen testusername@test.com
+$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-charity ProbateCharity@gmail.com
+echo "Idam setup complete"
