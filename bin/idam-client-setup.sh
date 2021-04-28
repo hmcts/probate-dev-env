@@ -7,7 +7,7 @@ REDIRECT_URI="http://localhost:3451/oauth2redirect"
 CLIENT_ID="ccd_gateway"
 CLIENT_SECRET="ccd_gateway_secret"
 XUI_CLIENT_ID="xuiwebapp"
-XUI_CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
+XUI_CLIENT_SECRET="ccd_gateway_secret"
 BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
 authToken=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
@@ -20,7 +20,7 @@ curl -XPOST \
   ${IDAM_URI}/services \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
  -H "Content-Type: application/json" \
- -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-scheduler", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "payment", "caseworker-probate-bulkscan"], "description": "ccd_gateway", "label": "ccd_gateway", "oauth2ClientId": "ccd_gateway", "oauth2ClientSecret": "ccd_gateway_secret", "oauth2RedirectUris": ["http://localhost:3451/oauth2redirect", "http://localhost:3000/oauth2/callback"], "oauth2Scope": "string", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "payment", "caseworker-probate-bulkscan" ], "selfRegistrationAllowed": true}'
+ -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-scheduler", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "payment", "caseworker-probate-bulkscan"], "description": "ccd_gateway", "label": "ccd_gateway", "oauth2ClientId": "ccd_gateway", "oauth2ClientSecret": "ccd_gateway_secret", "oauth2RedirectUris": ["http://localhost:3451/oauth2redirect", "http://localhost:3000/oauth2/callback" ], "oauth2Scope": "string", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "payment", "caseworker-probate-bulkscan" ], "selfRegistrationAllowed": true}'
 
 echo "Setup xui client"
 # Create a xui client
@@ -66,37 +66,5 @@ curl -XPUT \
  -H "Content-Type: application/json" \
  -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "payment", "XUI-Admin", "XUI-SuperUser"]'
 
-
-
-echo "Creating idam users"
-$BIN_FOLDER/idam-create-user.sh ccd-import ccd.docker.default@hmcts.net Pa55word11 Default CCD_Docker
-$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-caseofficer ProbateCaseOfficer@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-caseadmin ProbateCaseAdmin@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-registrar ProbateRegistrar@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-superuser ProbateSuperuser@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-issuer ProbateSolCW1@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-issuer ProbateSolCW2@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-solicitor,XUI-Admin,XUI-SuperUser ProbateSolicitor1@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-solicitor,XUI-Admin,XUI-SuperUser ProbateSolicitor2@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker-probate,caseworker-probate-systemupdate bulkscan+ccd@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-caseofficer ProbateCaseOfficer@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-caseadmin ProbateCaseAdmin@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-registrar ProbateRegistrar@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-superuser ProbateSuperuser@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-scheduler ProbateSchedulerDEV@gmail.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-pcqextractor ProbatePcqExtractor@gmail.com
-$BIN_FOLDER/idam-create-user.sh citizen testusername@test.com
-$BIN_FOLDER/idam-create-user.sh caseworker,caseworker-probate,caseworker-probate-charity ProbateCharity@gmail.com
-
-
-# Setup Profiles in XUI
-echo "Setting up profiles in XUI..."
-
-USER_TOKEN="$($BIN_FOLDER/idam-xui-user-token.sh)"
-SERVICE_TOKEN="$($BIN_FOLDER/idam-service-token.sh xuiwebapp)"
-$BIN_FOLDER/register-role.sh "caseworker-probate-solicitor" "$USER_TOKEN" "$SERVICE_TOKEN"
-$BIN_FOLDER/register-role.sh "caseworker-probate" "$USER_TOKEN" "$SERVICE_TOKEN"
-$BIN_FOLDER/register-role.sh "XUI-SuperUser" "$USER_TOKEN" "$SERVICE_TOKEN"
-$BIN_FOLDER/register-role.sh "XUI-Admin" "$USER_TOKEN" "$SERVICE_TOKEN"
-
+echo ""
 echo "Idam setup complete"

@@ -9,8 +9,8 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/idam-create-caseworker.sh caseworker-probate,caseworker-probate-superuser ProbateSuperuser@gmail.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-issuer ProbateSolCW1@gmail.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-issuer ProbateSolCW2@gmail.com)
-(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,XUI-SuperUser,XUI-Admin ProbateSolicitor1@gmail.com)
-(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,XUI-SuperUser,XUI-Admin ProbateSolicitor2@gmail.com)
+(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor ProbateSolicitor1@gmail.com)
+(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor ProbateSolicitor2@gmail.com)
 (${binFolder}/idam-create-caseworker.sh caseworker-probate,caseworker-probate-systemupdate bulkscan+ccd@gmail.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-caseofficer ProbateCaseOfficer@gmail.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-caseadmin ProbateCaseAdmin@gmail.com)
@@ -39,3 +39,9 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/ccd-add-role.sh caseworker-probate-charity)
 (${binFolder}/ccd-add-role.sh caseworker-probate-bulkscan)
 
+# Setup Profiles in XUI
+echo "Setting up profiles in XUI..."
+
+(${binFolder}/xui-add-role.sh caseworker-probate-solicitor)
+(${binFolder}/xui-add-role.sh XUI-SuperUser)
+(${binFolder}/xui-add-role.sh XUI-Admin)
