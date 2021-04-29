@@ -12,7 +12,7 @@ IMPORTER_PASSWORD=${2:-Pa55word11}
 IDAM_URI="http://localhost:5000"
 REDIRECT_URI="http://localhost:3000/oauth2/callback"
 CLIENT_ID="xuiwebapp"
-CLIENT_SECRET=${OAUTH2_CLIENT_SECRET}
+CLIENT_SECRET="ccd_gateway_secret"
 SCOPE="openid%20profile%20roles"
 
 curl --silent -H "Content-Type: application/x-www-form-urlencoded" \
