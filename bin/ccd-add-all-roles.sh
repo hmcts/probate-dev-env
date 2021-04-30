@@ -1,5 +1,6 @@
 #!/bin/bash
 binFolder=$($(dirname "$0")/probate-dev-env-realpath)
+IDAM_URI="http://localhost:5000"
 
 (${binFolder}/idam-create-caseworker.sh ccd-import ccd.docker.default@hmcts.net Pa55word11 Default CCD_Docker)
 
@@ -20,6 +21,14 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-pcqextractor ProbatePcqExtractor@gmail.com)
 (${binFolder}/idam-create-caseworker.sh citizen testusername@test.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-charity ProbateCharity@gmail.com)
+(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager ProbateSolicitorXui1@gmail.com)
+(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager,pui-organisation-manager,pui-finance-manager ProbateSolicitorXui2@gmail.com)
+
+# Refresh cache
+echo ""
+echo "Refreshing cache..."
+
+curl --silent --show-error -X POST "${IDAM_URI}/testing-support/cache/refresh" -H "accept: */*"
 
 (${binFolder}/ccd-add-role.sh payment)
 (${binFolder}/ccd-add-role.sh citizen)
@@ -38,4 +47,10 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/ccd-add-role.sh caseworker-probate-scheduler)
 (${binFolder}/ccd-add-role.sh caseworker-probate-charity)
 (${binFolder}/ccd-add-role.sh caseworker-probate-bulkscan)
+(${binFolder}/ccd-add-role.sh pui-case-manager)
+(${binFolder}/ccd-add-role.sh pui-user-manager)
+(${binFolder}/ccd-add-role.sh pui-organisation-manager)
+(${binFolder}/ccd-add-role.sh pui-finance-manager)
 
+echo ""
+echo "Setting CCD XUI Roles and Users is finished"

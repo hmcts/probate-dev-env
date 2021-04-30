@@ -37,7 +37,7 @@ for i in "${roles[@]}"; do
 done
 rolesJson="${rolesJson}]"
 
-curl -XPOST \
+curl -s -o /dev/null -XPOST \
   http://localhost:5000/testing-support/accounts \
   -H "Content-Type: application/json" \
   -d '{"email":"'${email}'","forename":"'${forename}'","surname":"'${surname}'","password":"'${password}'","levelOfAccess":1, "roles": '${rolesJson}', "userGroup": {"code": "caseworker"}}'
