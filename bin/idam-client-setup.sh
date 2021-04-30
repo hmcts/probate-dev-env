@@ -9,7 +9,7 @@ CLIENT_SECRET="ccd_gateway_secret"
 XUI_CLIENT_ID="xuiwebapp"
 BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
-authToken=$(curl -v -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | jq -r .api_auth_token)
+authToken=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
 
 echo "authtoken is ${authToken}"
 
@@ -44,6 +44,7 @@ $BIN_FOLDER/idam-role.sh caseworker-probate-scheduler
 $BIN_FOLDER/idam-role.sh caseworker-probate-charity
 $BIN_FOLDER/idam-role.sh payment
 $BIN_FOLDER/idam-role-assignable.sh ccd-import
+$BIN_FOLDER/idam-role.sh pui-case-manager
 
 #Assign all the roles to the ccd_gateway client
 curl -XPUT \
