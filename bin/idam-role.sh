@@ -9,7 +9,9 @@ if [ -z "$role" ]
     echo "Usage: ./idam-role.sh role [role] [description]"
     exit 1
 fi
-authToken=$(curl -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | jq -r .api_auth_token)
+authToken=$(curl -s -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
+
+echo "\nCreating role with:\nName: ${role}\n"
 
 curl --request POST \
   --url "${IDAM_URI}/roles" \
