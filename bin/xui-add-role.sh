@@ -27,7 +27,7 @@ esac
 
 binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 
-userToken="$(${binFolder}/idam-user-token.sh)"
+userToken="$(${binFolder}/idam-xui-user-token.sh)"
 serviceToken="$(${binFolder}/idam-service-token.sh xui_webapp)"
 
 curl -s -XPUT \
