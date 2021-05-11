@@ -43,4 +43,9 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/ccd-add-role.sh caseworker-probate-bulkscan)
 (${binFolder}/xui-add-role.sh pui-case-manager)
 (${binFolder}/xui-add-role.sh pui-user-manager)
+(${binFolder}/xui-add-role.sh caseworker)
+(${binFolder}/xui-add-role.sh caseworker-probate)
+(${binFolder}/xui-add-role.sh caseworker-probate-solicitor)
+(${binFolder}/xui-add-role.sh caseworker-probate-superuser)
+
 
