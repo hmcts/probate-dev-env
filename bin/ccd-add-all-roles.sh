@@ -20,6 +20,9 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-pcqextractor ProbatePcqExtractor@gmail.com)
 (${binFolder}/idam-create-caseworker.sh citizen testusername@test.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-charity ProbateCharity@gmail.com)
+(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager ProbateSolicitorXui1@gmail.com)
+(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager ProbateSolicitorXui2@gmail.com)
+
 
 (${binFolder}/ccd-add-role.sh payment)
 (${binFolder}/ccd-add-role.sh citizen)
@@ -38,4 +41,11 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/ccd-add-role.sh caseworker-probate-scheduler)
 (${binFolder}/ccd-add-role.sh caseworker-probate-charity)
 (${binFolder}/ccd-add-role.sh caseworker-probate-bulkscan)
+(${binFolder}/xui-add-role.sh pui-case-manager)
+(${binFolder}/xui-add-role.sh pui-user-manager)
+(${binFolder}/xui-add-role.sh caseworker)
+(${binFolder}/xui-add-role.sh caseworker-probate)
+(${binFolder}/xui-add-role.sh caseworker-probate-solicitor)
+(${binFolder}/xui-add-role.sh caseworker-probate-superuser)
+
 
