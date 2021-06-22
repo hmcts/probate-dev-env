@@ -22,7 +22,7 @@ done
 # Start all other images
 echo "Starting dependencies..."
 docker-compose ${COMPOSE_FILE} up -d
-
+$BIN_FOLDER/wiremock.sh
 echo "LOCAL ENVIRONMENT SUCCESSFULLY STARTED"
 echo "Environment is ready, other than some fee updates which may take a while."
 echo "Waiting to update fees..."

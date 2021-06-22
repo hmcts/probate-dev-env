@@ -20,8 +20,6 @@ binFolder=$($(dirname "$0")/probate-dev-env-realpath)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-pcqextractor ProbatePcqExtractor@gmail.com)
 (${binFolder}/idam-create-caseworker.sh citizen testusername@test.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-charity ProbateCharity@gmail.com)
-(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager ProbateSolicitorXui1@gmail.com)
-(${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager ProbateSolicitorXui2@gmail.com)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager probatesolicitortestorgtest1@gmail.com Probate123 TestUser PBA)
 (${binFolder}/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager probatesolicitortestorg2test1@gmail.com Probate123 TestUser PBAOrg2)
 
