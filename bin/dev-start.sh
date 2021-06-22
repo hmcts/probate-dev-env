@@ -75,5 +75,6 @@ psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'SA' WHERE code = 'FEE0219'";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = (SELECT id FROM amount WHERE amount_type = 'VolumeAmount' ORDER BY id LIMIT 1)";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";
+psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description, status, valid_from, version, amount_id, fee_id, direction_type, fee_order_name, memo_line, natural_account_code, si_ref_id, statutory_instrument) VALUES ('VH - added to fix local func tests issue', 1, '2021-06-22 00:00:00', 1, 223, 182, 'enhanced', 'Non-Contentious Probate Fees', 'Non Personal Application for grant of Probate', 4481102158, 1, '2011 No. 588 (L. 4)')";
 echo "...Updated fees"
 
