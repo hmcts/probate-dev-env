@@ -66,6 +66,7 @@ psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO f
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO amount (amount_type,creation_time,last_updated) VALUES ('FlatAmount',now(),now())";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO flat_amount(id, amount) VALUES ((SELECT MAX( id ) FROM amount a ), 0)";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description,status,valid_from,valid_to,version,amount_id,fee_id,direction_type,fee_order_name,memo_line,natural_account_code,si_ref_id,statutory_instrument,approved_by,author) VALUES ('Application for Gor Fee less than 5000',1,'2011-04-03 00:00:00.000',NULL,1,(SELECT MAX( id ) FROM amount a ),(SELECT MAX(id) from fee),'cost recovery','Non-Contentious Probate Fees','RECEIPT OF FEES - Family misc probate','4481102173','4','2011 No 588 ','126175','126172')";
+psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description, status, valid_from, version, amount_id, fee_id, direction_type, fee_order_name, memo_line, natural_account_code, si_ref_id, statutory_instrument) VALUES ('VH - added to fix local func tests issue', 1, '2021-06-22 00:00:00', 1, 223, 182, 'enhanced', 'Non-Contentious Probate Fees', 'Non Personal Application for grant of Probate', 4481102158, 1, '2011 No. 588 (L. 4)')";
 echo "...insert fees completed"
 
 echo "Updating Fees keyword, and amounts..."
@@ -75,6 +76,5 @@ psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE public.fee SET keyword = 'SA' WHERE code = 'FEE0219'";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE volume_amount SET amount = '1.5' WHERE id = (SELECT id FROM amount WHERE amount_type = 'VolumeAmount' ORDER BY id LIMIT 1)";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "UPDATE flat_amount SET amount = '1.5' WHERE id = '1'";
-psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description, status, valid_from, version, amount_id, fee_id, direction_type, fee_order_name, memo_line, natural_account_code, si_ref_id, statutory_instrument) VALUES ('VH - added to fix local func tests issue', 1, '2021-06-22 00:00:00', 1, 223, 182, 'enhanced', 'Non-Contentious Probate Fees', 'Non Personal Application for grant of Probate', 4481102158, 1, '2011 No. 588 (L. 4)')";
 echo "...Updated fees"
 
