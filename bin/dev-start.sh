@@ -22,7 +22,7 @@ done
 # Start all other images
 echo "Starting dependencies..."
 docker-compose ${COMPOSE_FILE} up -d
-
+$BIN_FOLDER/wiremock.sh
 echo "LOCAL ENVIRONMENT SUCCESSFULLY STARTED"
 echo "Environment is ready, other than some fee updates which may take a while."
 echo "Waiting to update fees..."
@@ -66,6 +66,7 @@ psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO f
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO amount (amount_type,creation_time,last_updated) VALUES ('FlatAmount',now(),now())";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO flat_amount(id, amount) VALUES ((SELECT MAX( id ) FROM amount a ), 0)";
 psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description,status,valid_from,valid_to,version,amount_id,fee_id,direction_type,fee_order_name,memo_line,natural_account_code,si_ref_id,statutory_instrument,approved_by,author) VALUES ('Application for Gor Fee less than 5000',1,'2011-04-03 00:00:00.000',NULL,1,(SELECT MAX( id ) FROM amount a ),(SELECT MAX(id) from fee),'cost recovery','Non-Contentious Probate Fees','RECEIPT OF FEES - Family misc probate','4481102173','4','2011 No 588 ','126175','126172')";
+psql -h localhost --username postgres -d fees_register -p 5050 -c "INSERT INTO fee_version (description, status, valid_from, version, amount_id, fee_id, direction_type, fee_order_name, memo_line, natural_account_code, si_ref_id, statutory_instrument) VALUES ('VH - added to fix local func tests issue', 1, '2021-06-22 00:00:00', 1, 223, 182, 'enhanced', 'Non-Contentious Probate Fees', 'Non Personal Application for grant of Probate', 4481102158, 1, '2011 No. 588 (L. 4)')";
 echo "...insert fees completed"
 
 echo "Updating Fees keyword, and amounts..."
