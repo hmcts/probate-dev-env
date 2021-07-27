@@ -2,6 +2,7 @@
 
 # Set variables
 COMPOSE_FILE=""
+BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
 echo "Starting databases..."
 docker-compose ${COMPOSE_FILE} up -d shared-db shared-database
