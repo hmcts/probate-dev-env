@@ -29,6 +29,12 @@ curl -XPOST \
  -H "Content-Type: application/json" \
  -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager"], "description": "xui_webapp", "label": "xui_webapp", "oauth2ClientId": "xui_webapp", "oauth2ClientSecret": "xui_webapp_secret", "oauth2RedirectUris": ["http://localhost:3455/oauth2/callback"], "oauth2Scope": "profile openid roles manage-user create-user", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser","pui-case-manager", "pui-user-manager" ], "selfRegistrationAllowed": true}'
 
+curl -XPOST \
+  ${IDAM_URI}/services \
+ -H "Authorization: AdminApiAuthToken ${authToken}" \
+ -H "Content-Type: application/json" \
+ -d '{ "activationRedirectUrl": "", "allowedRoles": [], "description": "ccd_data_store_api", "label": "ccd_data_store_api", "oauth2ClientId": "ccd_data_store_api", "oauth2ClientSecret": "idam_data_store_client_secret", "oauth2RedirectUris": ["http://ccd-data-store-api/oauth2redirect" ], "oauth2Scope": "profile openid roles manage-user", "selfRegistrationAllowed": false}'
+
 #Create all the role
 $BIN_FOLDER/idam-role.sh caseworker
 $BIN_FOLDER/idam-role.sh caseworker-probate
