@@ -27,7 +27,15 @@ curl -XPOST \
   ${IDAM_URI}/services \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
  -H "Content-Type: application/json" \
- -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager"], "description": "xui_webapp", "label": "xui_webapp", "oauth2ClientId": "xui_webapp", "oauth2ClientSecret": "xui_webapp_secret", "oauth2RedirectUris": ["http://localhost:3455/oauth2/callback"], "oauth2Scope": "profile openid roles manage-user create-user", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser","pui-case-manager", "pui-user-manager" ], "selfRegistrationAllowed": true}'
+ -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager"], "description": "xui_webapp", "label": "xui_webapp", "oauth2ClientId": "xui_webapp", "oauth2ClientSecret": "xui_webapp_secret", "oauth2RedirectUris": ["http://localhost:3455/oauth2/callback"], "oauth2Scope": "profile openid roles manage-user create-user search-user", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser","pui-case-manager", "pui-user-manager" ], "selfRegistrationAllowed": true}'
+
+echo "Setup am_role_assignment client"
+#Create a am_role_assignment
+curl -XPOST \
+  ${IDAM_URI}/services \
+ -H "Authorization: AdminApiAuthToken ${authToken}" \
+ -H "Content-Type: application/json" \
+ -d '{ "activationRedirectUrl": "http://localhost:4096/oauth2redirect", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-scheduler", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "payment", "caseworker-probate-bulkscan" ], "description": "am_role_assignment", "label": "am_role_assignment", "oauth2ClientId": "am_role_assignment", "oauth2ClientSecret": "am_role_assignment_secret", "oauth2RedirectUris": ["http://localhost:4096/oauth2redirect"], "oauth2Scope": "profile openid roles search-user", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "payment", "caseworker-probate-bulkscan" ], "selfRegistrationAllowed": false}'
 
 curl -XPOST \
   ${IDAM_URI}/services \
