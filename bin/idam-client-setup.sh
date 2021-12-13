@@ -10,7 +10,7 @@ XUI_CLIENT_ID="xui_webapp"
 XUI_CLIENT_SECRET="xui_webapp_secret"
 BIN_FOLDER=$($(dirname "$0")/probate-dev-env-realpath)
 
-authToken=$(curl -v -H 'Content-Type: application/x-www-form-urlencoded' -XPOST "${IDAM_URI}/loginUser?username=idamOwner@hmcts.net&password=Ref0rmIsFun" | jq -r .api_auth_token)
+authToken=$(curl -s -X POST "${IDAM_URI}/loginUser" -H "accept: application/json" -H "Content-Type: application/x-www-form-urlencoded" -d "password=Ref0rmIsFun&username=idamOwner@hmcts.net" | docker run --rm --interactive stedolan/jq -r .api_auth_token)
 
 echo "authtoken is ${authToken}"
 
@@ -27,7 +27,15 @@ curl -XPOST \
   ${IDAM_URI}/services \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
  -H "Content-Type: application/json" \
- -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager"], "description": "xui_webapp", "label": "xui_webapp", "oauth2ClientId": "xui_webapp", "oauth2ClientSecret": "xui_webapp_secret", "oauth2RedirectUris": ["http://localhost:3455/oauth2/callback"], "oauth2Scope": "profile openid roles manage-user create-user", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser","pui-case-manager", "pui-user-manager" ], "selfRegistrationAllowed": true}'
+ -d '{ "activationRedirectUrl": "", "allowedRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager"], "description": "xui_webapp", "label": "xui_webapp", "oauth2ClientId": "xui_webapp", "oauth2ClientSecret": "xui_webapp_secret", "oauth2RedirectUris": ["http://localhost:3455/oauth2/callback"], "oauth2Scope": "profile openid roles manage-user create-user search-user", "onboardingEndpoint": "string", "onboardingRoles": ["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser","pui-case-manager", "pui-user-manager" ], "selfRegistrationAllowed": true}'
+
+echo "Setup am_role_assignment client"
+#Create a am_role_assignment
+curl -XPOST \
+  ${IDAM_URI}/services \
+ -H "Authorization: AdminApiAuthToken ${authToken}" \
+ -H "Content-Type: application/json" \
+ -d '{ "activationRedirectUrl": "", "allowedRoles": [], "description": "am_role_assignment", "label": "am_role_assignment", "oauth2ClientId": "am_role_assignment", "oauth2ClientSecret": "am_role_assignment_secret", "oauth2RedirectUris": ["http://localhost:4096/oauth2redirect"], "oauth2Scope": "profile openid roles search-user", "selfRegistrationAllowed": false}'
 
 curl -XPOST \
   ${IDAM_URI}/services \
