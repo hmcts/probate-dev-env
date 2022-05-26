@@ -44,10 +44,10 @@ curl -XPOST \
  -d '{ "activationRedirectUrl": "", "allowedRoles": [], "description": "ccd_data_store_api", "label": "ccd_data_store_api", "oauth2ClientId": "ccd_data_store_api", "oauth2ClientSecret": "idam_data_store_client_secret", "oauth2RedirectUris": ["http://ccd-data-store-api/oauth2redirect" ], "oauth2Scope": "profile openid roles manage-user", "selfRegistrationAllowed": false}'
 
 echo "Setup aac_manage_case_assignment client"
-$BIN_FOLDER/idam-create-service.sh "aac_manage_case_assignment" "aac_manage_case_assignment" "AAAAAAAAAAAAAAAA" "https://manage-case-assignment/oauth2redirect" "false" "profile openid roles manage-user")
+$BIN_FOLDER/idam-create-service.sh "aac_manage_case_assignment" "aac_manage_case_assignment" "AAAAAAAAAAAAAAAA" "https://manage-case-assignment/oauth2redirect" "false" "profile openid roles manage-user"
 
 echo "Setup xui_mo_webapp client"
-$BIN_FOLDER/idam-create-service.sh "xui_mo_webapp" "xui_mo_webapp" "AAAAAAAAAAAAAAAA" "http://localhost:3001/oauth2/callback" "false" "profile openid roles manage-user create-user manage-roles")
+$BIN_FOLDER/idam-create-service.sh "xui_mo_webapp" "xui_mo_webapp" "AAAAAAAAAAAAAAAA" "http://localhost:3001/oauth2/callback" "false" "profile openid roles manage-user create-user manage-roles"
 
 #Create all the role
 $BIN_FOLDER/idam-role.sh caseworker
@@ -68,8 +68,8 @@ $BIN_FOLDER/idam-role-assignable.sh ccd-import
 $BIN_FOLDER/idam-role.sh caseworker-caa
 $BIN_FOLDER/idam-role.sh pui-caa
 $BIN_FOLDER/idam-role.sh pui-organisation-manager
-$BIN_FOLDER/idam-create-caseworker.sh caseworker,caseworker-caa,pui-case-manager,pui-user-manager caa-caseworker@mailnesia.com "Password12" "caa" "caseworker")
-$BIN_FOLDER/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager,pui-organisation-manager,pui-caa probatesolicitortestorgman3@gmail.com Probate123 TestOrg3 PBA)
+$BIN_FOLDER/idam-create-caseworker.sh caseworker,caseworker-caa,pui-case-manager,pui-user-manager caa-caseworker@mailnesia.com "Password12" "caa" "caseworker"
+$BIN_FOLDER/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager,pui-organisation-manager,pui-caa probatesolicitortestorgman3@gmail.com Probate123 TestOrg3 PBA
 
 
 # Roles required for XUI
