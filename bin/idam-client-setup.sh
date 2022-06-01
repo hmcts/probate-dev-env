@@ -43,6 +43,12 @@ curl -XPOST \
  -H "Content-Type: application/json" \
  -d '{ "activationRedirectUrl": "", "allowedRoles": [], "description": "ccd_data_store_api", "label": "ccd_data_store_api", "oauth2ClientId": "ccd_data_store_api", "oauth2ClientSecret": "idam_data_store_client_secret", "oauth2RedirectUris": ["http://ccd-data-store-api/oauth2redirect" ], "oauth2Scope": "profile openid roles manage-user", "selfRegistrationAllowed": false}'
 
+echo "Setup aac_manage_case_assignment client"
+$BIN_FOLDER/idam-create-service.sh "aac_manage_case_assignment" "aac_manage_case_assignment" "AAAAAAAAAAAAAAAA" "https://manage-case-assignment/oauth2redirect" "false" "profile openid roles manage-user"
+
+echo "Setup xui_mo_webapp client"
+$BIN_FOLDER/idam-create-service.sh "xui_mo_webapp" "xui_mo_webapp" "AAAAAAAAAAAAAAAA" "http://localhost:3001/oauth2/callback" "false" "profile openid roles manage-user create-user manage-roles"
+
 #Create all the role
 $BIN_FOLDER/idam-role.sh caseworker
 $BIN_FOLDER/idam-role.sh caseworker-probate
@@ -59,23 +65,32 @@ $BIN_FOLDER/idam-role.sh caseworker-probate-scheduler
 $BIN_FOLDER/idam-role.sh caseworker-probate-charity
 $BIN_FOLDER/idam-role.sh payment
 $BIN_FOLDER/idam-role-assignable.sh ccd-import
+$BIN_FOLDER/idam-role.sh caseworker-caa
+$BIN_FOLDER/idam-role.sh pui-caa
+$BIN_FOLDER/idam-role.sh pui-organisation-manager
+$BIN_FOLDER/idam-create-caseworker.sh caseworker,caseworker-caa,pui-case-manager,pui-user-manager caa-caseworker@mailnesia.com "Password12" "caa" "caseworker"
+$BIN_FOLDER/idam-create-caseworker.sh caseworker,caseworker-probate,caseworker-probate-solicitor,pui-case-manager,pui-user-manager,pui-organisation-manager,pui-caa probatesolicitortestorgman3@gmail.com Probate123 TestOrg3 PBA
+
 
 # Roles required for XUI
 echo ""
 echo "Setting up Roles required for XUI..."
 $BIN_FOLDER/idam-role.sh pui-case-manager
 $BIN_FOLDER/idam-role.sh pui-user-manager
+$BIN_FOLDER/xui-add-role.sh caseworker-caa
+$BIN_FOLDER/xui-add-role.sh pui-caa
+$BIN_FOLDER/xui-add-role.sh pui-organisation-manager
 
 #Assign all the roles to the ccd_gateway client
 curl -XPUT \
   ${IDAM_URI}/services/ccd_gateway/roles \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
  -H "Content-Type: application/json" \
- -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "caseworker-probate-scheduler", "payment"]'
+ -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate", "caseworker-probate-issuer", "caseworker-probate-solicitor", "caseworker-probate-authoriser", "caseworker-probate-systemupdate", "caseworker-probate-caseofficer", "caseworker-probate-caseadmin", "caseworker-probate-registrar", "caseworker-probate-superuser", "caseworker-probate-charity", "caseworker-probate-scheduler", "payment", "caseworker-caa"]'
 
 #Assign roles to the xui_webapp client
 curl -XPUT \
   ${IDAM_URI}/services/xui_webapp/roles \
  -H "Authorization: AdminApiAuthToken ${authToken}" \
  -H "Content-Type: application/json" \
- -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager"]'
+ -d '["ccd-import", "caseworker", "caseworker-probate", "caseworker-probate-solicitor", "caseworker-probate-superuser", "pui-case-manager", "pui-user-manager", "caseworker-caa"]'
